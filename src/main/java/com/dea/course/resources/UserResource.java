@@ -19,8 +19,8 @@ import com.dea.course.services.UserService;
 public class UserResource {
 
 	//Abaixo criar um método que vai ser um endpoint para acessar os usuários.
-	@Autowired
-	private UserService service;
+	@Autowired//anotação para o spring fazer a injeção de dependencia
+	private UserService service;//dependencia para o ServiceUser. Para ela funcioanar, precisa estar registrada como componente do spring. Para isso preciso ir na classe UserService e registra-la como componente. Fazemos isso usando uma anotation no começo da classe UserService como @Service.
 	
 	@GetMapping //Para indicar que esse método responde a requisição do tipo get do http eu coloco essa anotation.
 	public ResponseEntity<List<User>> findAll() { //Tipo de retorno desse método é o ResponseEntity, que é um tipo especifico do String Boot para retornar resposta de requisições web. Esse ResponseEntity é genérico. Ele espera um tipo e o tipo de resposta vai ser User, da classe User.
@@ -28,10 +28,10 @@ public class UserResource {
 		return ResponseEntity.ok().body(list); //retornar o ResponseEntity.ok para retornar resposta com sucesso no http e .body chama o body para retornar o corpo da resposta desse meu usuário u que eu acabei de instanciar.
 	}
 	
-	@GetMapping(value = "/{id}")
+	@GetMapping(value = "/{id}")//esse método indica que a minha requisição vai aceitar um id dentro da url
 	public ResponseEntity<User> findById(@PathVariable Long id) {
 		User obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
+		return ResponseEntity.ok().body(obj);//Esse é nosso endpoint
 	}
 		
 }
