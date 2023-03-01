@@ -29,7 +29,7 @@ public class Order implements Serializable {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant moment;
 	
-	private Integer orderStatus;
+	private Integer orderStatus;//Coloca integer para dizer que estou gravando no banco de dados um número inteiro. Esse tratamento é somente interno
 
 	@ManyToOne
 	@JoinColumn(name = "client_id")
@@ -42,7 +42,7 @@ public class Order implements Serializable {
 		super();
 		this.id = id;
 		this.moment = moment;
-		setOrderStatus(orderStatus);
+		setOrderStatus(orderStatus);//Atribuo o objeto OrderStatus, chamando a operação setOrderStatus.
 		this.client = client;
 	}
 
@@ -63,12 +63,12 @@ public class Order implements Serializable {
 	}
 
 	public OrderStatus getOrderStatus() {
-		return OrderStatus.valueOf(orderStatus);
+		return OrderStatus.valueOf(orderStatus);//converter o número inteiro para o OrderStatus usando o método que criamos na classe enum.
 	}
 
-	public void setOrderStatus(OrderStatus orderStatus) {
-		if (orderStatus != null) {
-		this.orderStatus = orderStatus.getCode();
+	public void setOrderStatus(OrderStatus orderStatus) {//Recebo o OrderStatus e preciso gravar um número inteiro.
+		if (orderStatus != null) {//Teste para saber se vai ter algum valor nulo.
+		this.orderStatus = orderStatus.getCode();//usa o get para chamar o metodo que criamos no OrderStatus.
 		}
 	}
 

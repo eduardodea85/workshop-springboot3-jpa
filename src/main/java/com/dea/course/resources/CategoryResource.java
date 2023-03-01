@@ -19,13 +19,13 @@ public class CategoryResource {
 	@Autowired
 	private CategoryService service;
 	
-	@GetMapping
+	@GetMapping//Endpoint para buscar todas as categorias
 	public ResponseEntity<List<Category>> findAll() {
 		List<Category> list = service.findAll();				
 		return ResponseEntity.ok().body(list);
 	}
 	
-	@GetMapping(value = "/{id}")
+	@GetMapping(value = "/{id}")//Endpoint para buscar todos os Id's
 	public ResponseEntity<Category> findById(@PathVariable Long id) {
 		Category obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);

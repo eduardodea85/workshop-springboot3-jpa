@@ -8,9 +8,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
+//Para ser uma entidade do sistema gerenciada pelo JPA faço as seguinte anotações do JPA (Mapeamentos do JPA)
 @Entity
-@Table(name = "tb_category")
+@Table(name = "tb_category")//Nome padrão do banco de dados.
 public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
