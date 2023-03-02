@@ -1,12 +1,15 @@
 package com.dea.course.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 //Para ser uma entidade do sistema gerenciada pelo JPA faço as seguinte anotações do JPA (Mapeamentos do JPA)
 @Entity
@@ -18,6 +21,9 @@ public class Category implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	
+	@Transient
+	private Set<Product> products = new HashSet<>(); //Instanciando a classe Product. Criar também o método get. Só uso o get porque esta é uma coleção e não faz sentido eu querer trocar a minha coleção de produtos. Eu nunca troco, apenas adiciono ou removo a coleção.
 	
 	public Category() {
 	}
@@ -44,6 +50,10 @@ public class Category implements Serializable {
 		this.name = name;
 	}
 
+	public Set<Product> getProducts() {
+		return products;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -68,7 +78,8 @@ public class Category implements Serializable {
 			return false;
 		return true;
 	}
+
 	
-	
+
 
 }
