@@ -5,7 +5,6 @@ package com.dea.course.config;
 //Esta classe de configuração não é nem controller, nem service e nem repository, ela vai ser uma classe auxiliar que vai fazer alguma configurações na minha aplicação. Isso é uma pratica muito utilizada.
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +14,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.dea.course.entities.Category;
 import com.dea.course.entities.Order;
+import com.dea.course.entities.OrderItem;
 import com.dea.course.entities.Product;
 import com.dea.course.entities.User;
 import com.dea.course.entities.enums.OrderStatus;
 import com.dea.course.repositories.CategoryRepository;
+import com.dea.course.repositories.OrderItemRepository;
 import com.dea.course.repositories.OrderRepository;
 import com.dea.course.repositories.ProductRepository;
 import com.dea.course.repositories.UserRepository;
@@ -41,6 +42,9 @@ public class TestConfig implements CommandLineRunner{ //Essa classe de configura
 	
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 
 	@Override
 	public void run(String... args) throws Exception { //tudo que colocarmos dentro desse método vai ser executado quando a aplicação for inciada.
@@ -78,9 +82,12 @@ public class TestConfig implements CommandLineRunner{ //Essa classe de configura
 		userRepository.saveAll(Arrays.asList(u1, u2)); //esse comando salva os dois usuários no banco de dados. Para salvar usamos o UserRepository, que é o objeto repository que acessa dos dados. Em saveAll, eu passo uma lista de objetos (Arrays.asList(passando objeto u1 e u2)) e ele salva essa lista no banco de dados.
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3));
 		
-	}
-	
-	
-	
-	
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice()); 
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice()); 
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice()); 
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+		
+		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+		
+	}	
 }
