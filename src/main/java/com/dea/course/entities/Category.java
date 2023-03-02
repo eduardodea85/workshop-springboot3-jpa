@@ -4,12 +4,15 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
+
 
 //Para ser uma entidade do sistema gerenciada pelo JPA faço as seguinte anotações do JPA (Mapeamentos do JPA)
 @Entity
@@ -22,7 +25,8 @@ public class Category implements Serializable {
 	private Long id;
 	private String name;
 	
-	@Transient
+	@JsonIgnore
+	@ManyToMany(mappedBy = "categories")
 	private Set<Product> products = new HashSet<>(); //Instanciando a classe Product. Criar também o método get. Só uso o get porque esta é uma coleção e não faz sentido eu querer trocar a minha coleção de produtos. Eu nunca troco, apenas adiciono ou removo a coleção.
 	
 	public Category() {

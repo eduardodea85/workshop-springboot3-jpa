@@ -8,6 +8,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -26,7 +29,12 @@ public class Product implements Serializable {
 	private String imgUrl;
 	
 	//Instanciando a Categoria
-	@Transient
+	//@Transient estava usando para o JPA não reconhecer a coleção. Vamos fazer então um mapeamento para transformar essas coleções que tem nas duas classes na tabela de associações que tem no modelo relacional.
+	@ManyToMany
+	@JoinTable(name = "tb_product_category",
+	joinColumns = @JoinColumn(name = "product_id"),//JoinColumn do produto.
+	inverseJoinColumns = @JoinColumn(name = "category_id"))//InverseJoinColumns é para definir qual é a classe estrangeira da oura entidade
+	//Estou criando a tabela de associação, tb_product_category e tenho que informar qual vai ser o nome da chave estrangeira referente a tabela de produto. Só que na tabela de associação do banco de dados, aprendemos que ela vai ter a chave estrangeira das duas tabelas (no caso é produto e categoria), então também vou precisar definir isso como fiz acima.
 	private Set<Category> categories = new HashSet<>(); //Não vou usar uma lista List. Usar uma outra coleção do java que é o Set. Porque o Set representa um conjunto, isso é para garantir que eu não vou ter o produto com mais de uma ocorrencia da mesma categoria. O mesmo produto não pode ter uma mesma categoria mais de uma vez.
 	//Instanciamos para que a minha coleção não comece valendo nula. Ela tem que começar vazia, porém instanciada. O Set é uma interface e não pode ser instanciado, por isso uso uma classe correspondente a essa interface que é HashSet. Do mesmo jeito que usamos o List junto com ArrayList, usamos o Set junto com HashSet.
 	

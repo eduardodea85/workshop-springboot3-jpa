@@ -31,6 +31,7 @@ public class Order implements Serializable {
 	
 	private Integer orderStatus;//Coloca integer para dizer que estou gravando no banco de dados um número inteiro. Esse tratamento é somente interno
 
+	//O pedido tem um cliente que é o usuário. E colocamos a anotação MuitosParaUm e JoinColumn com nome de client_id. Ou seja, estou dizendo que na tabela de pedidos do banco de dados, vou ter uma chave estrangeira chamada client_id que vai conter o id do usuário associado a esse pedido.
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private User client;
