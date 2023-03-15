@@ -15,7 +15,7 @@ public class OrderItem implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
-	private OrderItemPK id = new OrderItemPK();
+	private OrderItemPK id = new OrderItemPK(); //Tem um id que é do tipo OrderItemPK. Esse OrderItemPK, na classe pk, tem uma associação de muitos para um com o order(pedido) e com o product(produto). No caso do pedido fizemos a associação inversa, porque na classe Order, tem uma coleção de items associado a ela Set<OrderItem> items = new HashSet<>(); isso está representado no diagrama (O pedido 1 está associado com dois objetos do tipo OrderItem. É isso que temos, uma coleção de OrderItem associados ao Order. Mas vou precisar também fazer o mesmo com a classe Product, ter uma coleção de OrderItem.
 	
 	private Integer quantity;
 	private Double price;
@@ -31,7 +31,7 @@ public class OrderItem implements Serializable {
 		this.price = price;
 	}
 	
-	@JsonIgnore
+	@JsonIgnore //Uso essa anotation para não acontecer o loop infinito.
 	public Order getOrder() {
 		return id.getOrder();
 	}

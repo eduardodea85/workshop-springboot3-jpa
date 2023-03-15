@@ -15,11 +15,11 @@ public class OrderItemPK implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	//Esta classe de associação não precisa ter o construtor. Apenas os get e set.
-	@ManyToOne
+	@ManyToOne //Associação de muitos para um
 	@JoinColumn(name = "order_id")
 	private Order order;
 	
-	@ManyToOne
+	@ManyToOne //Associação de muitos para um
 	@JoinColumn(name = "product_id")
 	private Product product;
 	

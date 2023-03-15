@@ -34,7 +34,7 @@ import jakarta.persistence.Table;
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id //Essa anotion define a chave primária.
+	@Id //Essa anotation define a chave primária.
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //Essa definição de estratégia do banco de dados vai funcionar no nosso banco de dados.
 	private Long id; //Esta é a chave primária do banco de dados. Como ela é uma chave numerica, vai ser auto-incrementado no banco de dados.
 	private String name;
