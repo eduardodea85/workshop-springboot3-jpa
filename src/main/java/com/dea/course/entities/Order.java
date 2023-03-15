@@ -8,6 +8,7 @@ import java.util.Set;
 import com.dea.course.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 //Classe atualizada nesse commit
@@ -41,6 +43,9 @@ public class Order implements Serializable {
 	
 	@OneToMany(mappedBy = "id.order")	
 	private Set<OrderItem> items = new HashSet<>();
+	
+	@OneToOne(mappedBy = "order", cascade = CascadeType.ALL) //No caso do um para um, estamos mapeando as duas entidades para ter o mesmo id. (Ex se o pedido for código 5, o pagamento desse pedido também vai ter código 5) E nesse caso de mapear relação de um para um com o mesmo id, é obrigatório colocar o cascade como está acima.	
+	private Payment payment;
 
 	public Order() {
 	}
@@ -87,6 +92,14 @@ public class Order implements Serializable {
 		this.client = client;
 	}
 
+	public Payment getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
+	}
+	
 	public Set<OrderItem> getItems() {
 		return items;
 	}
