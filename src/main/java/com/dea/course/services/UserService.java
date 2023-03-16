@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.dea.course.entities.User;
 import com.dea.course.repositories.UserRepository;
+import com.dea.course.services.exceptions.ResourceNotFoundException;
 
 //Implementando
 
@@ -26,7 +27,7 @@ public class UserService {
 	
 	public User findById(Long id) { //operação para buscar os usuários por Id 
 		Optional<User> obj = repository.findById(id); //chamo o método repository.findById retornando o Optinona<User>
-		return obj.get(); //A operação get() do optional vai retornar o objeto do tipo <User> que estiver dentro do optional
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id)); //A operação get() do optional vai retornar o objeto do tipo <User> que estiver dentro do optional. Foi alterado para orElseThrow que faz o tratamento de exceção.
 	}
 	
 	public User insert(User obj) {
