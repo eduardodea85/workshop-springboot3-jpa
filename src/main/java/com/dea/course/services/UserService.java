@@ -16,6 +16,8 @@ import com.dea.course.repositories.UserRepository;
 import com.dea.course.services.exceptions.DatabaseException;
 import com.dea.course.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 //Implementando
 
 @Service //Essa anotation registra a classe como um serviço do spring e ela vai poder ser injetada automaticamente com o @Autowired
@@ -49,9 +51,13 @@ public class UserService {
 	}
 	
 	public User update(Long id, User obj) {
+		try {
 		User entity = repository.getReferenceById(id);
 		updateData(entity, obj);
 		return repository.save(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 
 	private void updateData(User entity, User obj) {
